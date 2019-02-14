@@ -1,0 +1,10 @@
+.feed-header-container {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 10px 0px 10px 0px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+  z-index: 2;
+}

@@ -1,0 +1,8 @@
+.profile-header-container {
+  border-bottom: 1px solid #efefefef;
+}
+
+.profile-header-title {
+  font-size: 1.2em;
+  font-weight: 500;
+}

@@ -127,10 +127,6 @@ textarea {
   font: inherit;
   margin: 0;
 }
-p {
-  padding: 0px;
-  margin: 0px;
-}
 button {
   overflow: visible;
 }
@@ -1109,86 +1105,4 @@ hr {
 }
 .affix {
   position: fixed;
-}
-
-.icon {
-  display: inline-block;
-  background-image: url(./sprite.png);
-  background-repeat: no-repeat;
-  background-size: 405px 379px;
-  text-indent: -1000%;
-}
-
-.camera {
-  background-position: -0px -331px;
-  height: 22px;
-  width: 25px;
-}
-
-.instagram {
-  background-position: -245px -5px;
-  height: 30px;
-  width: 107px;
-}
-
-.tv {
-  background-position: -283px -176px;
-  height: 24px;
-  width: 24px;
-}
-
-.envelope {
-  background-position: -226px -176px;
-  height: 24px;
-  width: 31px;
-}
-
-.options {
-  background-position: -374px -239px;
-  height: 14px;
-  width: 25px;
-}
-
-.like {
-  background-position: -374px -239px;
-  height: 14px;
-  width: 25px;
-}
-.comment {
-  background-position: -374px -239px;
-  height: 14px;
-  width: 25px;
-}
-.bookmark {
-  background-position: -374px -239px;
-  height: 14px;
-  width: 25px;
-}
-
-.pySm {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.vertical-center {
-  display: inline-block;
-  vertical-align: middle;
-  float: none;
-}
-
-.pr0 {
-  padding-right: 0px;
-}
-
-.pyMd {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.plMd {
-  padding-left: 8px;
-}
-
-.text-align-center {
-  text-align: center;
 }
