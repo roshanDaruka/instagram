@@ -1,0 +1,47 @@
+.profile-info-dp-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-info-section {
+  margin-top: 20px;
+}
+
+.profile-info-dp {
+  width: 65%;
+  border-radius: 50%;
+  border: 1px solid blue;
+  margin-bottom: 20px;
+}
+
+.profile-full-name {
+  font-weight: 600;
+}
+
+.profile-metrics {
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
+.profile-metrics-title {
+  color: #ababaf;
+  margin-bottom: 5px;
+}
+
+.edit-profile-button {
+  width: 100%;
+  border: 1px solid #efefef;
+  background-color: white;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.call-button {
+  border: none;
+  border-top: 1px solid #efefef;
+  color: blue;
+  background-color: white;
+  width: 100%;
+  padding: 8px;
+}

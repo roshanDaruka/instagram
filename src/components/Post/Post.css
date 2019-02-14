@@ -1,0 +1,15 @@
+.post-section-container {
+}
+
+.post-dp {
+  border-radius: 50%;
+}
+
+.post-image {
+  width: 100%;
+}
+
+.post-image-container {
+  margin-left: -8px;
+  margin-right: -8px;
+}
