@@ -12,20 +12,20 @@ class FeedHeader extends Component {
       <div className="row feed-header-container">
         <div className="col-xs-10">
           <div className="row">
-            <div className="col-xs-1 vertical-center">
+            <div className="vertical-center col-xs-1">
               <Icons icon="camera" />
             </div>
-            <div className="col-xs-4 vertical-center">
+            <div className="vertical-center col-xs-4">
               <Icons icon="instagram" />
             </div>
           </div>
         </div>
         <div className="col-xs-2">
           <div className="row">
-            <div className="col-xs6 vertical-center">
+            <div className="vertical-center col-xs6">
               <Icons icon="tv" />
             </div>
-            <div className="col-xs-6 vertical-center">
+            <div className="vertical-center col-xs-6">
               <Icons icon="envelope" />
             </div>
           </div>

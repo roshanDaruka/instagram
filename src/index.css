@@ -1126,7 +1126,7 @@ hr {
 }
 
 .instagram {
-  background-position: -245px -5px;
+  background-position: -245px -0px;
   height: 30px;
   width: 107px;
 }
@@ -1160,9 +1160,9 @@ hr {
   width: 25px;
 }
 .bookmark {
-  background-position: -374px -239px;
-  height: 14px;
-  width: 25px;
+  background-position: -152px -354px;
+  height: 25px;
+  width: 20px;
 }
 
 .pySm {
@@ -1189,6 +1189,36 @@ hr {
   padding-left: 8px;
 }
 
+.inline {
+  display: inline-block;
+}
+
 .text-align-center {
   text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.back {
+  background-position: -381px -305px;
+  height: 25px;
+  width: 14px;
+}
+
+.like {
+  background-position: -324px -332px;
+  height: 20px;
+  width: 25px;
+}
+
+.comment {
+  background-position: -257px -176px;
+  height: 24px;
+  width: 25px;
+}
+
+.text-align-right {
+  text-align: right;
 }

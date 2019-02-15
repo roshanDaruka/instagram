@@ -1,0 +1,11 @@
+.text-comment-author {
+  font-weight: 500;
+}
+
+.text-comment {
+}
+
+.comment-container {
+  padding: 10px;
+  border-bottom: 1px solid #efefef;
+}

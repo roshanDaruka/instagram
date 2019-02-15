@@ -9,19 +9,25 @@ class Footer extends Component {
         <div className="row pyMd">
           <div className="col-xs-1" />
           <div className="col-xs-2">
+            <Icons
+              icon="envelope"
+              onClick={() => this.props.handleNavigation(1)}
+            />
+          </div>
+          <div className="text-align-center  col-xs-2">
             <Icons icon="bookmark" />
           </div>
-          <div className="col-xs-2">
-            <Icons icon="bookmark" />
+          <div className="text-align-center col-xs-2">
+            <Icons icon="like" />
           </div>
-          <div className="col-xs-2">
-            <Icons icon="bookmark" />
+          <div className="text-align-center col-xs-2">
+            <Icons icon="comment" />
           </div>
-          <div className="col-xs-2">
-            <Icons icon="bookmark" />
-          </div>
-          <div className="col-xs-2">
-            <Icons icon="bookmark" />
+          <div className="text-align-right col-xs-2">
+            <Icons
+              icon="options"
+              onClick={() => this.props.handleNavigation(2)}
+            />
           </div>
           <div className="col-xs-1" />
         </div>

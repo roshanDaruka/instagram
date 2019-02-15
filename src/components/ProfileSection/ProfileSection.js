@@ -6,7 +6,7 @@ import Pictures from '../../components/Pictures/Pictures.js';
 class ProfileSection extends Component {
   render() {
     return (
-      <div>
+      <div className="profile-container">
         <ProfileHeader />
         <ProfileInfo />
         <Pictures />

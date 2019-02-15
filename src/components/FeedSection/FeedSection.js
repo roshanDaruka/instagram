@@ -7,7 +7,7 @@ class FeedSection extends Component {
     return (
       <div>
         <FeedHeader />
-        <Feed />
+        <Feed handleNavigation={this.props.handleNavigation} />
       </div>
     );
   }

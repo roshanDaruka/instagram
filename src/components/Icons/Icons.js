@@ -6,8 +6,9 @@ class Icon extends Component {
     this.state = {};
   }
   render() {
+    const { icon, ...restProps } = this.props;
     const className = `icon ${this.props.icon}`;
-    return <div className={className} />;
+    return <div className={className} {...restProps} />;
   }
 }
 

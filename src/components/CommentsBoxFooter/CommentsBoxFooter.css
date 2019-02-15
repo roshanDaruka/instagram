@@ -1,0 +1,17 @@
+.comments-box-footer-container {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  z-index: 5;
+  left: 0px;
+  background-color: #ffffff;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-top: 1px solid #efefef;
+}
+
+.post-button {
+  font-weight: 500;
+  outline: none;
+  color: blue;
+}
