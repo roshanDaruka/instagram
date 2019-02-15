@@ -8,140 +8,131 @@ class TodoApp extends Component {
       todo: '',
       tDB: {},
       datastore: null,
-      name: ''
+      name: '',
+      todos: [],
+      showTodos: false,
+      showNameForm: true
     };
   }
 
   componentDidMount() {
     if (!('indexedDB' in window)) {
-      console.log("This browser doesn't support IndexedDB");
+      alert("This browser doesn't support IndexedDB");
     } else {
-      // this.open(this.refreshTodos);
+      this.open();
     }
   }
 
-  refreshTodos = nick => {
-    debugger;
-    this.fetchTodos(todos => {
-      let todoList = document.getElementById('todo-items');
-      todoList.innerHTML = '';
-
-      for (let i = 0; i < todos.length; i++) {
-        let todo = todos[todos.length - 1 - i];
-
-        let li = document.createElement('li');
-        let checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.className = 'todo-checkbox';
-        checkbox.setAttribute('data-id', todo.timestamp);
-
-        li.appendChild(checkbox);
-
-        let span = document.createElement('span');
-        span.innerHTML = todo.text;
-
-        li.appendChild(span);
-
-        todoList.appendChild(li);
-
-        checkbox.addEventListener('click', e => {
-          let id = parseInt(e.target.getAttribute('data-id'));
-          this.deleteTodo(id, nick, this.refreshTodos);
-        });
-      }
-    }, nick);
-  };
-
-  open = (callback, nick) => {
-    debugger;
+  open = () => {
     let version = 1;
     let request = indexedDB.open('todos', version);
-
     request.onupgradeneeded = e => {
       let db = e.target.result;
-
       e.target.transaction.onerror = this.state.tDB.onerror;
-
-      if (db.objectStoreNames.contains(nick)) {
-        db.deleteObjectStore(nick);
+      if (db.objectStoreNames.contains('todos')) {
+        db.deleteObjectStore('todos');
       }
-
-      db.createObjectStore(nick, {
-        keyPath: 'timestamp'
+      const store = db.createObjectStore('todos', {
+        keyPath: 'name'
+      });
+      store.put({
+        name: 'roshan',
+        todos: [
+          {
+            text: 'lets finish this todo list',
+            timestamp: new Date().getTime()
+          }
+        ]
       });
     };
 
     request.onsuccess = e => {
       this.setState({ datastore: e.target.result });
-      callback(nick);
+      if (this.state.name.length > 0) {
+        this.fetchTodos();
+      }
     };
 
-    request.onerror = this.state.tDB.onerror;
+    request.onerror = e => {
+      console.log('[onerror]', request.error);
+    };
   };
 
-  fetchTodos = (callback, nick) => {
-    debugger;
+  fetchTodos = () => {
     let db = this.state.datastore;
-    let transaction = db.transaction(['todos'], 'readwrite');
-    let objStore = transaction.objectStore(nick);
-    let todosStore = objStore.get('todos');
+    let transaction = db.transaction(['todos'], 'readonly');
+    let objStore = transaction.objectStore('todos');
     let keyRange = IDBKeyRange.lowerBound(0);
-    let cursorRequest = todosStore.openCursor(keyRange);
+    let cursorRequest = objStore.openCursor(keyRange);
     let todos = [];
-
+    const self = this;
     transaction.oncomplete = function(e) {
-      callback(todos);
+      const nickTodos = todos.find(element => element.name === self.state.name);
+      console.log(nickTodos);
+      self.setState({ todos: (nickTodos && nickTodos.todos) || [] });
     };
-
     cursorRequest.onsuccess = function(e) {
       let result = e.target.result;
-
-      if (!!result == false) {
+      if (!!result === false) {
         return;
       }
-
       todos.push(result.value);
-
       result.continue();
     };
 
-    cursorRequest.onerror = this.state.tDB.onerror;
+    cursorRequest.onerror = e => {
+      console.log(e);
+    };
   };
 
-  createTodos = (text, nick, callback) => {
-    debugger;
+  createTodos = (text, nick) => {
     let db = this.state.datastore;
-    console.log(db);
-    let transaction = db.transaction(['todo'], 'readwrite');
-
-    let objStore = transaction.objectStore(nick);
-
+    let transaction = db.transaction(['todos'], 'readwrite');
+    let objStore = transaction.objectStore('todos');
     let timestamp = new Date().getTime();
-
     let todo = {
       text: text,
       timestamp: timestamp
     };
-
-    let request = objStore.put(todo);
-
+    let todos = [];
+    let t;
+    if (todos) {
+      t = this.state.todos;
+      t.push(todo);
+    }
+    const newData = {
+      name: this.state.name,
+      todos: t
+    };
+    let request = objStore.put(newData, nick);
+    const self = this;
     request.onsuccess = e => {
-      callback(todo);
+      self.fetchTodos();
     };
 
-    request.onerror = this.state.tDB.onerror;
+    request.onerror = e => {
+      console.log(e);
+    };
   };
 
-  deleteTodo = (id, nick, callback) => {
-    debugger;
+  deleteTodo = id => {
     let db = this.state.datastore;
-    let transaction = db.transaction(['todo'], 'readwrite');
-    let objStore = transaction.objectStore('nick');
-
-    let request = objStore.delete(id);
-
+    let transaction = db.transaction(['todos'], 'readwrite');
+    let objStore = transaction.objectStore('todos');
+    let todos = [];
+    let t;
+    if (todos) {
+      t = this.state.todos;
+      t = t.filter(element => element.timestamp !== id);
+    }
+    const newData = {
+      name: this.state.name,
+      todos: t
+    };
+    let request = objStore.put(newData);
+    const self = this;
     request.onsuccess = function(e) {
-      callback();
+      self.fetchTodos();
     };
 
     request.onerror = function(e) {
@@ -150,24 +141,18 @@ class TodoApp extends Component {
   };
 
   handleFormSubmit = e => {
-    let text = this.state.todo;
-    let name = this.state.name;
-    if (text.replace(/ /g, '') !== '') {
-      this.createTodos(text, name, todo => {
-        this.refreshTodos(name);
-      });
-    }
-
-    this.setState({ text: '' });
     e.preventDefault();
+    let text = this.state.todo;
+    if (text.replace(/ /g, '') !== '') {
+      this.createTodos(text);
+    }
+    this.setState({ todo: '' });
   };
 
   handleNameSubmit = e => {
-    let name = this.state.name;
-    console.log();
-    debugger;
-    this.open(this.refreshTodos, name);
     e.preventDefault();
+    this.fetchTodos(this.state.name);
+    this.setState({ showTodos: true, showNameForm: false });
   };
 
   handleNameChange = e => {
@@ -178,34 +163,65 @@ class TodoApp extends Component {
     this.setState({ todo: e.target.value });
   };
 
+  handleCheckBox = e => {
+    let id = parseInt(e.target.getAttribute('data-id'));
+    this.deleteTodo(id);
+  };
+
   render() {
     return (
-      <div id="page-wrapper">
-        <form onSubmit={this.handleNameSubmit}>
-          <input
-            type="text"
-            name="user-name"
-            id="user-name"
-            onChange={this.handleNameChange}
-            value={this.state.name}
-            placeholder="Enter your name..."
-            required
-          />
-          <input type="submit" value="Submit" />
-        </form>
-        <form onSubmit={this.handleFormSubmit}>
-          <input
-            type="text"
-            name="new-todo"
-            id="new-todo"
-            onChange={this.handleChange}
-            value={this.state.todo}
-            placeholder="Enter a todo item..."
-            required
-          />
-          <input type="submit" value="Submit" />
-        </form>
-        <ul id="todo-items" />
+      <div className="page-wrapper">
+        {this.state.showNameForm && (
+          <form className="name-form" onSubmit={this.handleNameSubmit}>
+            <label htmlFor="user-name" className="label">
+              Please Enter Your Name
+            </label>
+            <input
+              type="text"
+              name="user-name"
+              onChange={this.handleNameChange}
+              value={this.state.name}
+              placeholder="Enter your name..."
+              className="name-input"
+            />
+            <input type="submit" className="submit-button" value="Submit" />
+          </form>
+        )}
+        {this.state.showTodos && (
+          <div>
+            <form className="name-form" onSubmit={this.handleFormSubmit}>
+              <label htmlFor="new-todo">Enter todo</label>
+              <input
+                type="text"
+                name="new-todo"
+                onChange={this.handleChange}
+                value={this.state.todo}
+                placeholder="Enter a todo item..."
+                required
+                className="name-input"
+              />
+              <input type="submit" className="submit-button" value="Submit" />
+            </form>
+            <ul id="todo-items">
+              {this.state.name &&
+                this.state.todos &&
+                this.state.todos.length > 0 &&
+                this.state.todos.map(todo => (
+                  <li key={todo.timestamp}>
+                    <button
+                      onClick={this.handleCheckBox}
+                      className="todo-button"
+                      data-id={todo.timestamp}
+                    >
+                      {' '}
+                      delete
+                    </button>
+                    <p className="inline">{todo.text}</p>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
       </div>
     );
   }
