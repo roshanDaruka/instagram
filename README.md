@@ -16,7 +16,7 @@ Starts the dev server at localhost:3000;
 
 Installs the dependencies for server
 
-###  cd server/ `npm run start` 
+###  cd server/ `node server.js` 
 
 Starts the node backend server at localhost:4000;
 
