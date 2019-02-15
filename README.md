@@ -11,7 +11,7 @@ It installs all the dependencies required
 
 ### `npm run start`
 
-Starts the dev server at localhost:4000;
+Starts the dev server at localhost:3000;
 ###  cd server/ `npm install`
 
 Installs the dependencies for server
