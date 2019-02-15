@@ -24,25 +24,24 @@ class Post extends Component {
           />
         </div>
         <div className="row pyMd">
-          <div className="col-xs-11">
+          <div className="col-xs-10">
             <div className="row">
               <div className="col-xs-1 vertical-center pr0">
                 <Icons icon="like" />
               </div>
               <div className="col-xs-1 vertical-center pr0">
-                <Icons icon="comment" />
+                <Icons
+                  icon="comment"
+                  onClick={() => this.props.handleNavigation(3)}
+                />
               </div>
               <div className="col-xs-1 vertical-center pr0">
                 <Icons icon="envelope" />
               </div>
             </div>
           </div>
-          <div className="col-xs-1">
-            <div className="row">
-              <div className="col-xs-1 vertical-center pr0">
-                <Icons icon="bookmark" />
-              </div>
-            </div>
+          <div className="col-xs-2 text-align-right">
+            <Icons icon="bookmark" />
           </div>
         </div>
       </div>

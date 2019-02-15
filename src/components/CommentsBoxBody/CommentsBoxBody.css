@@ -1,0 +1,12 @@
+.comments-box-body-container {
+  margin-top: 50px;
+}
+
+.comment-image {
+  border-radius: 50%;
+}
+
+.comments-box-text {
+  font-size: 1.2em;
+  font-weight: 500;
+}
