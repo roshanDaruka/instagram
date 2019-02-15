@@ -1,17 +1,24 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 
-## Available Scripts
+## How to use
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm install`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+It installs all the dependencies required
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### `npm run start`
+
+Starts the dev server at localhost:4000;
+###  cd server/ `npm install`
+
+Installs the dependencies for server
+
+###  cd server/ `npm run start` 
+
+Starts the node backend server at localhost:4000;
 
 ### `npm test`
 
