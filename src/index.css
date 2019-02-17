@@ -1201,6 +1201,10 @@ hr {
   text-align: right;
 }
 
+.text-align-right {
+  text-align: left;
+}
+
 .back {
   background-position: -381px -305px;
   height: 25px;
@@ -1221,4 +1225,8 @@ hr {
 
 .text-align-right {
   text-align: right;
+}
+
+.prSm {
+  padding-right: 5px;
 }

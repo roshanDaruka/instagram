@@ -5,12 +5,18 @@ import Comment from '../../components/Comment/Comment.js';
 
 class CommentsBox extends Component {
   render() {
+    const comments = this.props.comments;
     return (
       <div className="comments-box-body-container">
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => (
+          <Comment
+            key={comment.id}
+            nickname={comment.author.nickname}
+            avatar={comment.author.avatar}
+            text={comment.text}
+            timestamp={comment.timestamp}
+          />
+        ))}
       </div>
     );
   }

@@ -13,11 +13,18 @@ class CommentsBox extends Component {
               src="http://via.placeholder.com/40x40"
             />
           </div>
-          <div className="vertical-center col-xs-8">
-            <CommentInput />
-          </div>
-          <div className="vertical-center col-xs-2">
-            <button className="post-button">Post</button>
+          <div className="vertical-center col-xs-10">
+            <form onSubmit={this.props.handleCommentPost}>
+              <div className="vertical-center col-xs-9">
+                <CommentInput
+                  changeValue={this.props.changeValue}
+                  value={this.props.value}
+                />
+              </div>
+              <div className="vertical-center col-xs-3">
+                <input type="submit" className="post-button" value="Post" />
+              </div>
+            </form>
           </div>
         </div>
       </div>
