@@ -4,10 +4,19 @@ import Feed from '../../components/Feed/Feed.js';
 
 class FeedSection extends Component {
   render() {
+    const apolloClient = this.props.apolloClient;
+    const setComments = this.props.setComments;
     return (
       <div>
         <FeedHeader />
-        <Feed handleNavigation={this.props.handleNavigation} />
+        {this.props.user_id && (
+          <Feed
+            handleNavigation={this.props.handleNavigation}
+            setComments={setComments}
+            apolloClient={apolloClient}
+            user_id={this.props.user_id}
+          />
+        )}
       </div>
     );
   }

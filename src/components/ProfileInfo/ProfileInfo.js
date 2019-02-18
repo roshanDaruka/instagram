@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import './ProfileInfo.css';
-import Icons from '../../components/Icons/Icons.js';
 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 class ProfileInfo extends Component {
   render() {
     return (
       <div>
         <div className="row profile-info-container">
           <div className="col-xs-5 profile-info-dp-container">
-            <img
+            <LazyLoadImage
+              alt="post"
               className="profile-info-dp"
-              src="http://via.placeholder.com/200x200"
+              src="http://lorempixel.com/50/50/people"
+              effect="blur"
             />
             <p className="profile-full-name">Roshan Daruka</p>
           </div>
