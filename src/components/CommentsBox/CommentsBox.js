@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Icons from '../../components/Icons/Icons';
 import './CommentsBox.css';
 import CommentsBoxHeader from '../../components/CommentsBoxHeader/CommentsBoxHeader.js';
 import CommentsBoxBody from '../../components/CommentsBoxBody/CommentsBoxBody.js';
@@ -39,6 +38,7 @@ class CommentsBox extends Component {
           }
         })
         .then(response => {
+          console.log('here', response);
           this.setState({ comments: response.data.comments });
         })
         .catch(error => {
@@ -53,7 +53,7 @@ class CommentsBox extends Component {
 
   handleCommentPost = e => {
     e.preventDefault();
-    const user = this.props.user;
+    const { nickname, avatar, id } = this.props.user;
     debugger;
     const post_id = this.props.post_id;
     debugger;
@@ -78,15 +78,21 @@ class CommentsBox extends Component {
           variables: {
             CommentInput: {
               post_id: post_id,
-              author: user,
+              author: {
+                nickname,
+                avatar,
+                id
+              },
               text: this.state.value,
-              timestamp: Math.floor(Date.now() / 1000).toString()
+              timestamp: Math.floor(Date.now()).toString()
             }
           }
         })
         .then(response => {
-          debugger;
-          this.setState({ comments: response.data.comments });
+          this.setState({
+            comments: [...this.state.comments, response.data.updateComments],
+            value: ''
+          });
         })
         .catch(error => {
           debugger;
@@ -100,7 +106,12 @@ class CommentsBox extends Component {
     return (
       <div className="comments-box-container">
         <CommentsBoxHeader handleNavigation={this.props.handleNavigation} />
-        {comments.length > 0 && <CommentsBoxBody comments={comments} />}
+        {comments.length > 0 && (
+          <CommentsBoxBody
+            comments={comments}
+            apolloClient={this.props.apolloClient}
+          />
+        )}
         <CommentsBoxFooter
           value={this.state.value}
           changeValue={this.changeValue}

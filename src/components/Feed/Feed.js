@@ -13,7 +13,7 @@ class Feed extends Component {
   componentDidMount() {
     const user_id = this.props.user_id;
     if (!navigator.onLine) {
-      this.setState({ posts: JSON.parse(localStorage.getItem('posts')) });
+      // this.setState({ posts: JSON.parse(localStorage.getItem('posts')) });
     } else {
       this.props.apolloClient
         .query({
@@ -44,7 +44,7 @@ class Feed extends Component {
         })
         .then(response => {
           this.setState({ posts: response.data.posts });
-          localStorage.setItem('posts', JSON.stringify(response.data.posts));
+          // localStorage.setItem('posts', JSON.stringify(response.data.posts));
         })
         .catch(error => {
           console.log('error occured while fetching data', error);
@@ -55,7 +55,7 @@ class Feed extends Component {
   render() {
     const posts = this.state.posts;
     const setComments = this.props.setComments;
-    if (posts.length === 0) {
+    if (posts && posts.length === 0) {
       return <div className="feed-section-container">No posts</div>;
     }
     return (
@@ -73,6 +73,8 @@ class Feed extends Component {
             comment={post.comment}
             handleNavigation={this.props.handleNavigation}
             setComments={setComments}
+            user_id={this.props.user_id}
+            apolloClient={this.props.apolloClient}
           />
         ))}
       </div>

@@ -9,12 +9,14 @@ class FeedSection extends Component {
     return (
       <div>
         <FeedHeader />
-        <Feed
-          handleNavigation={this.props.handleNavigation}
-          setComments={setComments}
-          apolloClient={apolloClient}
-          user_id="a"
-        />
+        {this.props.user_id && (
+          <Feed
+            handleNavigation={this.props.handleNavigation}
+            setComments={setComments}
+            apolloClient={apolloClient}
+            user_id={this.props.user_id}
+          />
+        )}
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './CommentsBoxFooter.css';
 import CommentInput from '../../components/CommentInput/CommentInput.js';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 class CommentsBox extends Component {
   render() {
@@ -8,9 +9,11 @@ class CommentsBox extends Component {
       <div className="comments-box-footer-container">
         <div className="row">
           <div className="vertical-center text-align-center col-xs-2">
-            <img
+            <LazyLoadImage
+              alt="post"
               className="comment-image"
               src="http://via.placeholder.com/40x40"
+              effect="blur"
             />
           </div>
           <div className="vertical-center col-xs-10">

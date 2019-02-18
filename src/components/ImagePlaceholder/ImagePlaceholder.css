@@ -1,0 +1,137 @@
+.placeholder {
+  position: relative;
+  background: #ccc;
+  z-index: 1;
+  width: 230px;
+  text-align: center;
+  height: 230px;
+}
+.placeholder span {
+  box-shadow: 0 0 2px 0 #ccc inset;
+  position: relative;
+  height: 230px;
+  width: 230px;
+  display: block;
+  font-size: 12px;
+  color: #000;
+  line-height: 230px;
+  text-align: center;
+  z-index: 2;
+}
+.placeholder span:after {
+  position: absolute;
+  top: 6px;
+  left: 3px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-top: 109px solid transparent;
+  border-bottom: 109px solid transparent;
+  border-left: 109px solid #c0c0c0;
+  z-index: -1;
+}
+.placeholder span:before {
+  position: absolute;
+  top: 6px;
+  right: 3px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-top: 109px solid transparent;
+  border-bottom: 109px solid transparent;
+  border-right: 109px solid #c0c0c0;
+  z-index: -1;
+}
+.placeholder:after {
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-left: 109px solid transparent;
+  border-right: 109px solid transparent;
+  border-top: 109px solid #c0c0c0;
+  z-index: -1;
+}
+.placeholder:before {
+  position: absolute;
+  left: 6px;
+  bottom: 3px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-left: 109px solid transparent;
+  border-right: 109px solid transparent;
+  border-bottom: 109px solid #c0c0c0;
+  z-index: -1;
+}
+
+.longer {
+  position: relative;
+  background: #0f0;
+  z-index: 1;
+  width: 660px;
+  text-align: center;
+  height: 230px;
+}
+.longer span {
+  box-shadow: 0 0 2px 0 #0f0 inset;
+  position: relative;
+  height: 230px;
+  width: 660px;
+  display: block;
+  font-size: 12px;
+  color: #000;
+  line-height: 230px;
+  text-align: center;
+  z-index: 2;
+}
+.longer span:after {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-top: 107px solid transparent;
+  border-bottom: 107px solid transparent;
+  border-left: 322px solid #ff0;
+  z-index: -1;
+}
+.longer span:before {
+  position: absolute;
+  top: 8px;
+  right: 4px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-top: 107px solid transparent;
+  border-bottom: 107px solid transparent;
+  border-right: 322px solid #ff0;
+  z-index: -1;
+}
+.longer:after {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-left: 322px solid transparent;
+  border-right: 322px solid transparent;
+  border-top: 107px solid #ff0;
+  z-index: -1;
+}
+.longer:before {
+  position: absolute;
+  left: 8px;
+  bottom: 4px;
+  content: ' ';
+  width: 0;
+  height: 0;
+  border-left: 322px solid transparent;
+  border-right: 322px solid transparent;
+  border-bottom: 107px solid #ff0;
+  z-index: -1;
+}

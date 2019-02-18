@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Comment.css';
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 class Comment extends Component {
   formatTimestamp = timestamp => {
     const date = new Date(parseInt(timestamp));
@@ -37,7 +37,13 @@ class Comment extends Component {
     return (
       <div className="row comment-container">
         <div className="col-xs-2 text-align-center">
-          <img className="comment-image" src={avatar} />
+          <LazyLoadImage
+            alt="post"
+            effect="blur"
+            className="comment-image"
+            src={avatar}
+            heigh="233"
+          />
         </div>
         <div className="col-xs-10">
           <p className="text-comment-author inline">{nickname}&nbsp;</p>

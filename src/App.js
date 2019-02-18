@@ -7,22 +7,25 @@ import CommentsBox from './components/CommentsBox/CommentsBox.js';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import gql from 'graphql-tag';
+import { backendUrl } from './config.js';
 
 const client = new ApolloClient({
-  uri: 'http://127.0.0.1:4000/graphql'
+  uri: backendUrl
 });
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      activeScreen: 1,
+      // replace currentScreen with react router
+      currentScreen: 1,
       post_id: null,
-      user: null
+      user: {}
     };
   }
 
   componentDidMount() {
+    debugger;
     if (!navigator.onLine) {
     } else {
       client
@@ -48,7 +51,7 @@ class App extends Component {
 
   handleNavigation = index => {
     this.setState({
-      activeScreen: index
+      currentScreen: index
     });
   };
 
@@ -62,15 +65,16 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <div className="container">
-          {this.state.activeScreen === 1 && (
+          {this.state.currentScreen === 1 && (
             <FeedSection
               handleNavigation={this.handleNavigation}
               apolloClient={client}
               setComments={this.setComments}
+              user_id={this.state.user.id}
             />
           )}
-          {this.state.activeScreen === 2 && <ProfileSection />}
-          {this.state.activeScreen === 3 && (
+          {this.state.currentScreen === 2 && <ProfileSection />}
+          {this.state.currentScreen === 3 && (
             <CommentsBox
               handleNavigation={this.handleNavigation}
               post_id={this.state.post_id}
@@ -78,7 +82,7 @@ class App extends Component {
               user={this.state.user}
             />
           )}
-          {this.state.activeScreen !== 3 && (
+          {this.state.currentScreen !== 3 && (
             <Footer handleNavigation={this.handleNavigation} />
           )}
         </div>

@@ -2,6 +2,7 @@ let express = require("express");
 let graphqlHTTP = require("express-graphql");
 let { buildSchema } = require("graphql");
 let cors = require("cors");
+let faker = require("faker");
 
 let schema = buildSchema(`
     type User {
@@ -44,6 +45,7 @@ let schema = buildSchema(`
 
     type Mutation {
       updateComments(input: CommentInput): Comment
+      updateLikes(post_id: String!, user_id: String!): Post
     }
   `);
 
@@ -51,22 +53,22 @@ let userslist = {
   a: {
     id: "a",
     nickname: "Chris",
-    avatar: "https://loremflickr.com/30/30"
+    avatar: faker.image.imageUrl(30, 30, "people", true)
   },
   b: {
     id: "b",
     nickname: "Haris",
-    avatar: "https://loremflickr.com/30/30"
+    avatar: faker.image.imageUrl(30, 30, "people", true)
   },
   c: {
     id: "c",
     nickname: "Paris",
-    avatar: "https://loremflickr.com/30/30"
+    avatar: faker.image.imageUrl(30, 30, "people", true)
   },
   d: {
     id: "d",
     nickname: "Maris",
-    avatar: "https://loremflickr.com/30/30"
+    avatar: faker.image.imageUrl(30, 30, "people", true)
   },
 };
 
@@ -74,14 +76,12 @@ let commentsList = {
   post_a: [
     {
       id: "comment_id_1",
-
       author: userslist["a"],
       text: "Hou arer u ?",
       timestamp: "1550328142",
     },
     {
       id: "comment_id_2",
-
       author: userslist["c"],
       text: "hello what sup",
       timestamp: "1550328142",
@@ -89,7 +89,6 @@ let commentsList = {
     },
     {
       id: "comment_id_3",
-
       author: userslist["d"],
       text: "well done",
       timestamp: "1550328142",
@@ -175,7 +174,7 @@ let postslist = {
       id: "post_a",
       user: userslist["a"],
       caption: "Moving the community!",
-      image: "https://loremflickr.com/300/450",
+      image: faker.random.image(),
       likes: 34,
       comment: {
         author: userslist["a"],
@@ -186,10 +185,10 @@ let postslist = {
     },
     {
       id: "post_b",
-      user: userslist["a"],
+      user: userslist["b"],
       caption: "Angular Book :)",
       image:
-        "https://loremflickr.com/300/450",
+        faker.random.image(),
       likes: 34,
       comment: {
         author: userslist["a"],
@@ -200,9 +199,9 @@ let postslist = {
     },
     {
       id: "post_c",
-      user: userslist["a"],
+      user: userslist["c"],
       caption: "Me at Frontstack.io",
-      image: "https://loremflickr.com/300/450",
+      image: faker.random.image(),
       likes: 34,
       comment: {
         id: "comment_id_7",
@@ -215,7 +214,7 @@ let postslist = {
       id: "post_d",
       user: userslist["a"],
       caption: "Moving the community!",
-      image: "https://loremflickr.com/300/450",
+      image: faker.random.image(),
       likes: 34,
       comment: {
         id: "comment_id_10",
@@ -238,17 +237,28 @@ let root = {
     return postslist[user_id];
   },
   comments: function ({ post_id }) {
+    console.log(commentsList[post_id])
     return commentsList[post_id];
   },
-  updateComments: function({ post_id, author, text, timestamp}) {
+  updateComments: function ({ input }) {
+    const { post_id, author, text, timestamp } = input;
+    const id = Date.now().toString();
     commentsList[post_id].push({
       author,
       text,
       timestamp,
+      id,
     });
+    console.log(commentsList[post_id],'updated')
     return {
-      author, text, timestamp,
+      author, text, timestamp, id,
     };
+  },
+  updateLikes: function ({ post_id, user_id }) {
+    let post = postslist[user_id].find((post) => (post.id === post_id))
+    post = { ...post, likes: post.likes + 1 };
+    postslist[user_id][postslist[user_id].findIndex((post) => (post.id === post_id))] = post;
+    return post;
   }
 };
 

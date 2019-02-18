@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Icons from '../../components/Icons/Icons';
 import './CommentsBoxBody.css';
 import Comment from '../../components/Comment/Comment.js';
 
